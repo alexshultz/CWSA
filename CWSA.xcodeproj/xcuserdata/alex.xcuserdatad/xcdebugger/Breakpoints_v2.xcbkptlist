@@ -14,10 +14,169 @@
             filePath = "CWSA/main.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "16"
-            endingLineNumber = "16"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
             landmarkName = "main()"
             landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B53440BF-6F0E-4437-9892-4DDBED09DAC3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CWSA/main.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "main()"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "B53440BF-6F0E-4437-9892-4DDBED09DAC3 - d401294f86fee230"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CWSA.main() -&gt; ()"
+                  moduleName = "CWSA"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alex/Library/Mobile%20Documents/com~apple~CloudDocs/scripts/CWSA/CWSA/main.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "236">
+               </Location>
+               <Location
+                  uuid = "B53440BF-6F0E-4437-9892-4DDBED09DAC3 - d401294f86fee230"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CWSA.main() -&gt; ()"
+                  moduleName = "CWSA"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alex/Library/Mobile%20Documents/com~apple~CloudDocs/scripts/CWSA/CWSA/main.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "188">
+               </Location>
+               <Location
+                  uuid = "B53440BF-6F0E-4437-9892-4DDBED09DAC3 - d401294f86fee272"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CWSA.main() -&gt; ()"
+                  moduleName = "CWSA"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alex/Library/Mobile%20Documents/com~apple~CloudDocs/scripts/CWSA/CWSA/main.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "320">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0D1521DD-17E4-42DA-9C9F-B647CAFF21CB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CWSA/SubtitleManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "generateSubtitles(audioFileURL:videoFileURL:doneFolderPath:)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "34F06C4D-A3AE-4470-9407-9E5FE68AD74F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CWSA/Utility.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "runCommand(cmd:arguments:condaEnv:)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FDE3FFD8-BAAD-4978-8CB1-31D9FE4B1ED9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CWSA/FileProcessor.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "processFile(filePath:)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C9D23B5A-4554-4F10-A474-C3E109B9C88D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CWSA/FileProcessor.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "processFile(filePath:)"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "C9D23B5A-4554-4F10-A474-C3E109B9C88D - 553c8c5b60b0e598"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CWSA.processFile(filePath: Foundation.URL) -&gt; ()"
+                  moduleName = "CWSA"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alex/Library/Mobile%20Documents/com~apple~CloudDocs/scripts/CWSA/CWSA/FileProcessor.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "3604">
+               </Location>
+               <Location
+                  uuid = "C9D23B5A-4554-4F10-A474-C3E109B9C88D - 553c8c5b60b0e598"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CWSA.processFile(filePath: Foundation.URL) -&gt; ()"
+                  moduleName = "CWSA"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alex/Library/Mobile%20Documents/com~apple~CloudDocs/scripts/CWSA/CWSA/FileProcessor.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "3724">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

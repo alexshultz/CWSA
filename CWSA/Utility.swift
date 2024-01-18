@@ -9,7 +9,21 @@ import Foundation
 
 func runCommand(cmd: String, arguments: [String], condaEnv: String? = nil) -> (output: String, error: String, exitCode: Int32) {
     let commandWithArgs = "\(cmd) " + arguments.joined(separator: " ")
-    let fullCommand = condaEnv != nil ? "source activate \(condaEnv!) && \(commandWithArgs) && source deactivate" : commandWithArgs
+    
+    // Assuming the .zshrc file is in the user's home directory
+    let homeDirectory = NSHomeDirectory()
+    let zshrcPath = "\(homeDirectory)/.zshrc"
+
+    var fullCommand = commandWithArgs
+    if let condaEnv = condaEnv {
+        // Construct the command string to run within the Conda environment
+        fullCommand = """
+        source \(zshrcPath)
+        conda activate \(condaEnv)
+        \(commandWithArgs)
+        conda deactivate
+        """
+    }
 
     // Print the command that will be executed
     print("Executing command: \(fullCommand)")
@@ -18,7 +32,7 @@ func runCommand(cmd: String, arguments: [String], condaEnv: String? = nil) -> (o
     let outputPipe = Pipe()
     let errorPipe = Pipe()
 
-    process.executableURL = URL(fileURLWithPath: "/bin/bash") // Adjust if necessary
+    process.executableURL = URL(fileURLWithPath: "/bin/zsh") // Using zsh
     process.arguments = ["-c", fullCommand]
     process.standardOutput = outputPipe
     process.standardError = errorPipe
@@ -64,5 +78,108 @@ func updateDatestamp(filename: URL, minute: Int = 0) {
             .modificationDate: newDate
         ]
         try? FileManager.default.setAttributes(attributes, ofItemAtPath: filename.path)
+    }
+}
+
+func manageCondaEnvironment(envName: String, verificationCommand: String) {
+    let process = Process()
+    let pipe = Pipe()
+
+    process.executableURL = URL(fileURLWithPath: "/bin/zsh")
+
+    // Source .zshrc (or the relevant shell init file) before using the conda command
+    // Replace /path/to/.zshrc with the actual path to your .zshrc file
+    let commandString = "source $HOME/.zshrc && conda activate \(envName) && \(verificationCommand) && conda deactivate"
+
+    process.arguments = ["-c", commandString]
+
+    process.standardOutput = pipe
+    process.standardError = pipe
+
+    do {
+        try process.run()
+        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        let output = String(data: data, encoding: .utf8)
+        print(output ?? "No output")
+    } catch {
+        print("Failed to manage conda environment: \(error)")
+    }
+}
+
+func setupAndVerifyWhisperEnv() {
+    let process = Process()
+    let pipe = Pipe()
+
+    // Assuming the .zshrc file is in the user's home directory
+    let homeDirectory = NSHomeDirectory()
+    let zshrcPath = "\(homeDirectory)/.zshrc"
+
+    // Construct the command string
+    let commandString = """
+    source \(zshrcPath)
+    conda activate whisper
+    mkdir -p $(conda info --envs | grep whisper | awk '{print $2}')/etc/conda/activate.d
+    mkdir -p $(conda info --envs | grep whisper | awk '{print $2}')/etc/conda/deactivate.d
+    echo 'export WHISPER_ENV=true' > $(conda info --envs | grep whisper | awk '{print $2}')/etc/conda/activate.d/env_vars.sh
+    echo 'unset WHISPER_ENV' > $(conda info --envs | grep whisper | awk '{print $2}')/etc/conda/deactivate.d/env_vars.sh
+    chmod +x $(conda info --envs | grep whisper | awk '{print $2}')/etc/conda/activate.d/env_vars.sh
+    chmod +x $(conda info --envs | grep whisper | awk '{print $2}')/etc/conda/deactivate.d/env_vars.sh
+    conda deactivate
+    conda activate whisper
+    echo $WHISPER_ENV
+    conda deactivate
+    """
+
+    // Print the exact command for debugging
+    print("Executing command: \(commandString)")
+
+    process.executableURL = URL(fileURLWithPath: "/bin/zsh")
+    process.arguments = ["-c", commandString]
+
+    process.standardOutput = pipe
+    process.standardError = pipe
+
+    do {
+        try process.run()
+        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        let output = String(data: data, encoding: .utf8)
+        print(output ?? "No output")
+    } catch {
+        print("Failed to setup and verify WHISPER_ENV: \(error)")
+    }
+}
+
+func runCommandInCondaEnvironment(envName: String, command: String) {
+    let process = Process()
+    let pipe = Pipe()
+
+    // Assuming the .zshrc file is in the user's home directory
+    let homeDirectory = NSHomeDirectory()
+    let zshrcPath = "\(homeDirectory)/.zshrc"
+
+    // Construct the command string
+    let commandString = """
+    source \(zshrcPath)
+    conda activate \(envName)
+    \(command)
+    conda deactivate
+    """
+
+    // Print the exact command for debugging
+    print("Executing command: \(commandString)")
+
+    process.executableURL = URL(fileURLWithPath: "/bin/zsh")
+    process.arguments = ["-c", commandString]
+
+    process.standardOutput = pipe
+    process.standardError = pipe
+
+    do {
+        try process.run()
+        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        let output = String(data: data, encoding: .utf8)
+        print(output ?? "No output")
+    } catch {
+        print("Failed to run command in \(envName) environment: \(error)")
     }
 }

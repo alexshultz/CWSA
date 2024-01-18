@@ -9,13 +9,6 @@ import Foundation
 
 // Function to process a single file
 func processFile(filePath: URL) {
-    // Determine the base directory of the file
-    let baseDirectoryURL = filePath.deletingLastPathComponent()
-
-    // Ensure or create the 'done' folder in the base directory
-    let doneFolderPath = baseDirectoryURL.appendingPathComponent("done")
-    ensureDoneFolderExists(at: doneFolderPath)
-
     let matchPattern = "S(\\d{4})E(\\d{2})(\\d{2})(\\d{2}) - (.+?)\\.1080p\\.mp4"
     guard let regex = try? NSRegularExpression(pattern: matchPattern) else {
         print("Invalid regular expression")
@@ -26,6 +19,13 @@ func processFile(filePath: URL) {
     let range = NSRange(location: 0, length: filenameStr.utf16.count)
 
     if let match = regex.firstMatch(in: filenameStr, options: [], range: range) {
+        let baseDirectoryURL = filePath.deletingLastPathComponent()
+        let doneFolderPath = baseDirectoryURL.appendingPathComponent("done")
+        let originalFile = filePath
+        let workingFile = filePath
+        let ffmpegBackupFile = filePath.deletingPathExtension().appendingPathExtension("mp4_raw")
+        let exifBackupFile = filePath.deletingPathExtension().appendingPathExtension("mp4_original")
+        let srtFile = filePath.deletingPathExtension().appendingPathExtension("en.srt")
         let year = (filenameStr as NSString).substring(with: match.range(at: 1))
         let month = (filenameStr as NSString).substring(with: match.range(at: 2))
         let day = (filenameStr as NSString).substring(with: match.range(at: 3))
@@ -33,28 +33,26 @@ func processFile(filePath: URL) {
         let title = (filenameStr as NSString).substring(with: match.range(at: 5))
         let dateTime = "\(year):\(month):\(day) \(hour):00:00"
 
+        ensureDoneFolderExists(at: doneFolderPath)
+
         do {
-            // Figure out the file names before processing
-            let originalFile = filePath
-            let workingFile = filePath
-            let ffmpegBackupFile = filePath.deletingPathExtension().appendingPathExtension("mp4_raw")
-            let exifBackupFile = filePath.deletingPathExtension().appendingPathExtension("mp4_original")
             try FileManager.default.moveItem(at: originalFile, to: ffmpegBackupFile)
 
-            // Send the file to video processing and audio extraction
             if let audioFileObj = setMetadataFFmpeg(workingFile: workingFile, ffmpegBackupFile: ffmpegBackupFile) {
-                // Move the backup file to the done folder
                 moveFileToDoneFolder(fileURL: ffmpegBackupFile, doneFolderPath: doneFolderPath)
-                // Send the file to add metadata
                 if setMetadataExiftool(workingFile: workingFile, exifBackupFile: exifBackupFile, title: title, dateTime: dateTime) {
-                    // Move the backup file and the original file to the done folder
                     moveFileToDoneFolder(fileURL: exifBackupFile, doneFolderPath: doneFolderPath)
+                    updateDatestamp(filename: originalFile)
                     moveFileToDoneFolder(fileURL: originalFile, doneFolderPath: doneFolderPath)
-                    // Customize the file's datestamp
-                    updateDatestamp(filename: filePath)
-                    // Create the subtitle file
-                    generateSubtitles(audioFileURL: audioFileObj, videoFileURL: filePath, doneFolderPath: doneFolderPath)
+                    let subtitlesCreated = generateSubtitles(audioFileURL: audioFileObj, videoFileURL: filePath, doneFolderPath: doneFolderPath)
                     try? FileManager.default.removeItem(at: audioFileObj)
+                    
+                    if subtitlesCreated {
+                        updateDatestamp(filename: srtFile, minute: 1)
+                        moveFileToDoneFolder(fileURL: srtFile, doneFolderPath: doneFolderPath)
+                    } else {
+                        print("Subtitle generation failed for \(filePath)")
+                    }
                 } else {
                     print("Failed to set metadata using Exiftool for \(workingFile)")
                 }
