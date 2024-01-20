@@ -8,6 +8,7 @@
 import Foundation
 
 func runCommand(cmd: String, arguments: [String], condaEnv: String? = nil) -> (output: String, error: String, exitCode: Int32) {
+    log("Entering function", level: .debug)
     let commandWithArgs = "\(cmd) " + arguments.joined(separator: " ")
     
     // Assuming the .zshrc file is in the user's home directory
@@ -53,6 +54,7 @@ func runCommand(cmd: String, arguments: [String], condaEnv: String? = nil) -> (o
 }
 
 func updateDatestamp(filename: URL, minute: Int = 0) {
+    log("Entering function", level: .debug)
     let datePattern = "S(\\d{4})E(\\d{2})(\\d{2})(\\d{2})"
     let regex = try! NSRegularExpression(pattern: datePattern)
     let filenameStr = filename.lastPathComponent
@@ -82,6 +84,7 @@ func updateDatestamp(filename: URL, minute: Int = 0) {
 }
 
 func manageCondaEnvironment(envName: String, verificationCommand: String) {
+    log("Entering function", level: .debug)
     let process = Process()
     let pipe = Pipe()
 
@@ -102,11 +105,12 @@ func manageCondaEnvironment(envName: String, verificationCommand: String) {
         let output = String(data: data, encoding: .utf8)
         print(output ?? "No output")
     } catch {
-        print("Failed to manage conda environment: \(error)")
+        log("Failed to manage conda environment: \(error)", level: .error)
     }
 }
 
 func setupAndVerifyWhisperEnv() {
+    log("Entering function", level: .debug)
     let process = Process()
     let pipe = Pipe()
 
@@ -131,7 +135,7 @@ func setupAndVerifyWhisperEnv() {
     """
 
     // Print the exact command for debugging
-    print("Executing command: \(commandString)")
+    log("Executing command: \(commandString)", level: .debug)
 
     process.executableURL = URL(fileURLWithPath: "/bin/zsh")
     process.arguments = ["-c", commandString]
@@ -145,11 +149,12 @@ func setupAndVerifyWhisperEnv() {
         let output = String(data: data, encoding: .utf8)
         print(output ?? "No output")
     } catch {
-        print("Failed to setup and verify WHISPER_ENV: \(error)")
+        log("Failed to setup and verify WHISPER_ENV: \(error)", level: .error)
     }
 }
 
 func runCommandInCondaEnvironment(envName: String, command: String) {
+    log("Entering function", level: .debug)
     let process = Process()
     let pipe = Pipe()
 
@@ -166,7 +171,7 @@ func runCommandInCondaEnvironment(envName: String, command: String) {
     """
 
     // Print the exact command for debugging
-    print("Executing command: \(commandString)")
+    log("Executing command: \(commandString)", level: .debug)
 
     process.executableURL = URL(fileURLWithPath: "/bin/zsh")
     process.arguments = ["-c", commandString]
@@ -178,8 +183,26 @@ func runCommandInCondaEnvironment(envName: String, command: String) {
         try process.run()
         let data = pipe.fileHandleForReading.readDataToEndOfFile()
         let output = String(data: data, encoding: .utf8)
-        print(output ?? "No output")
+        log(output ?? "No output", level: .info)
     } catch {
-        print("Failed to run command in \(envName) environment: \(error)")
+        log("Failed to run command in \(envName) environment: \(error)", level: .error)
+    }
+}
+
+enum LogLevel: Int {
+    case debug = 1, info, warning, error
+}
+
+func log(_ message: String, level: LogLevel, file: String = #file, function: String = #function, line: Int = #line) {
+    guard level >= currentLogLevel else { return }
+
+    let fileName = (file as NSString).lastPathComponent
+    let logMessage = "\(Date()): [\(level)] [\(fileName):\(function):\(line)] - \(message)"
+    print(logMessage)
+}
+
+extension LogLevel: Comparable {
+    static func < (lhs: LogLevel, rhs: LogLevel) -> Bool {
+        return lhs.rawValue < rhs.rawValue
     }
 }

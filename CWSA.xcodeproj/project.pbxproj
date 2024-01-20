@@ -10,8 +10,10 @@
 		FA854F3A2B57825C006A158F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA854F392B57825C006A158F /* main.swift */; };
 		FA854F412B57856F006A158F /* FileProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA854F402B57856F006A158F /* FileProcessor.swift */; };
 		FA854F432B578581006A158F /* MetadataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA854F422B578581006A158F /* MetadataManager.swift */; };
-		FA854F452B578591006A158F /* SubtitleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA854F442B578591006A158F /* SubtitleManager.swift */; };
+		FA854F452B578591006A158F /* SubtitleManagerWhisper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA854F442B578591006A158F /* SubtitleManagerWhisper.swift */; };
 		FA854F472B5785A1006A158F /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA854F462B5785A1006A158F /* Utility.swift */; };
+		FA854F492B591FED006A158F /* SubtitleManagerVoiceFramework.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA854F482B591FED006A158F /* SubtitleManagerVoiceFramework.swift */; };
+		FA854F4B2B59202E006A158F /* TranscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA854F4A2B59202E006A158F /* TranscriptionService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,8 +33,13 @@
 		FA854F392B57825C006A158F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		FA854F402B57856F006A158F /* FileProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProcessor.swift; sourceTree = "<group>"; };
 		FA854F422B578581006A158F /* MetadataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataManager.swift; sourceTree = "<group>"; };
-		FA854F442B578591006A158F /* SubtitleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleManager.swift; sourceTree = "<group>"; };
+		FA854F442B578591006A158F /* SubtitleManagerWhisper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleManagerWhisper.swift; sourceTree = "<group>"; };
 		FA854F462B5785A1006A158F /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		FA854F482B591FED006A158F /* SubtitleManagerVoiceFramework.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleManagerVoiceFramework.swift; sourceTree = "<group>"; };
+		FA854F4A2B59202E006A158F /* TranscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionService.swift; sourceTree = "<group>"; };
+		FA854F4C2B592223006A158F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAD39DC42B5B9171007AEEE4 /* CWSARelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CWSARelease.entitlements; sourceTree = "<group>"; };
+		FAD39DC52B5B9299007AEEE4 /* CWSA.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CWSA.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +56,7 @@
 		FA854F2D2B57825C006A158F = {
 			isa = PBXGroup;
 			children = (
+				FA854F4C2B592223006A158F /* Info.plist */,
 				FA854F382B57825C006A158F /* CWSA */,
 				FA854F372B57825C006A158F /* Products */,
 			);
@@ -65,10 +73,14 @@
 		FA854F382B57825C006A158F /* CWSA */ = {
 			isa = PBXGroup;
 			children = (
+				FAD39DC52B5B9299007AEEE4 /* CWSA.entitlements */,
+				FAD39DC42B5B9171007AEEE4 /* CWSARelease.entitlements */,
 				FA854F392B57825C006A158F /* main.swift */,
 				FA854F402B57856F006A158F /* FileProcessor.swift */,
 				FA854F422B578581006A158F /* MetadataManager.swift */,
-				FA854F442B578591006A158F /* SubtitleManager.swift */,
+				FA854F482B591FED006A158F /* SubtitleManagerVoiceFramework.swift */,
+				FA854F442B578591006A158F /* SubtitleManagerWhisper.swift */,
+				FA854F4A2B59202E006A158F /* TranscriptionService.swift */,
 				FA854F462B5785A1006A158F /* Utility.swift */,
 			);
 			path = CWSA;
@@ -134,9 +146,11 @@
 			files = (
 				FA854F472B5785A1006A158F /* Utility.swift in Sources */,
 				FA854F412B57856F006A158F /* FileProcessor.swift in Sources */,
+				FA854F4B2B59202E006A158F /* TranscriptionService.swift in Sources */,
 				FA854F432B578581006A158F /* MetadataManager.swift in Sources */,
+				FA854F492B591FED006A158F /* SubtitleManagerVoiceFramework.swift in Sources */,
 				FA854F3A2B57825C006A158F /* main.swift in Sources */,
-				FA854F452B578591006A158F /* SubtitleManager.swift in Sources */,
+				FA854F452B578591006A158F /* SubtitleManagerWhisper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,7 +278,10 @@
 		FA854F3E2B57825C006A158F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CWSA/CWSA.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = N8D3Z8U4Y9;
+				PRODUCT_BUNDLE_IDENTIFIER = com.creeperbomb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -273,7 +290,11 @@
 		FA854F3F2B57825C006A158F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CWSA/CWSARelease.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = N8D3Z8U4Y9;
+				PRODUCT_BUNDLE_IDENTIFIER = com.creeperbomb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};

@@ -10,7 +10,7 @@ import Foundation
 // process video file and extract audio to a temporary file
 
 func setMetadataFFmpeg(workingFile: URL, ffmpegBackupFile: URL) -> URL? {
-    print("Entering setMetadataFFmpeg")
+    log("Entering function", level: .debug)
     let tempAudioFile = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString).appendingPathExtension("wav")
     
     let ffmpegCommand = "/opt/homebrew/bin/ffmpeg"
@@ -32,14 +32,14 @@ func setMetadataFFmpeg(workingFile: URL, ffmpegBackupFile: URL) -> URL? {
     if result.exitCode == 0 {
         return tempAudioFile
     } else {
-        print("FFmpeg processing failed for \(workingFile.path): \(result.error)")
+        log("FFmpeg processing failed for \(workingFile.path): \(result.error)", level: .error)
         return nil
     }
 }
 
 // Add metadata to the video file. Automatically creates a backup file.
 func setMetadataExiftool(workingFile: URL, exifBackupFile: URL, title: String, dateTime: String) -> Bool {
-    print("Entering setMetadataExiftool")
+    log("Entering function", level: .debug)
     
     let cmd = "/opt/homebrew/bin/exiftool"
     let arguments = [
@@ -54,15 +54,11 @@ func setMetadataExiftool(workingFile: URL, exifBackupFile: URL, title: String, d
         if FileManager.default.fileExists(atPath: exifBackupFile.path) {
             return true
         } else {
-            print("Expected backup file not found: \(exifBackupFile.path)")
+            log("Expected backup file not found: \(exifBackupFile.path)", level: .warning)
             return false
         }
     } else {
-        print("ExifTool processing failed for \(workingFile.path): \(result.error)")
+        log("ExifTool processing failed for \(workingFile.path): \(result.error)", level: .error)
         return false
     }
 }
-
-
-
-

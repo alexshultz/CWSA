@@ -52,7 +52,15 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "&quot;/Users/alex/Downloads/Coffee with Scott Adams - S2024E011502 - Man Cave Iowa must save the Republic.1080p.mp4&quot;"
+            argument = "&quot;/Users/alex/Downloads/Coffee with Scott Adams - S2024E013101 - Test.1080p.mp4&quot;"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-logLevel debug"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-transcriptionMethod speechFramework"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
